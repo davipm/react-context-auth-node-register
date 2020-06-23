@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import api from "../../services/api";
 import styles from "./logon.module.scss";
 import logoImg from "../../assets/logo.svg";
-import heroImg from "../../assets/heroes.svg";
+import heroImg from "../../assets/hero.svg";
 
 function Logon() {
   const [id, setId] = useState(localStorage.getItem("companyId") || "");
