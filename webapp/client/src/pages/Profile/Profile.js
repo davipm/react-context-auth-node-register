@@ -99,7 +99,7 @@ function Profile() {
         <img src={logoImg} alt="Welcome" />
         <span>Welcome {companyName}</span>
 
-        <Link to="/incidents/new" className="button">
+        <Link to="/freelancer/new" className="button">
           New Freelancer
         </Link>
 
@@ -147,8 +147,8 @@ function Profile() {
             <button
               type="button"
               onClick={() => deleteFreelancer(item.id)}
-              aria-label="Delete Incident"
-              title="Delete Incident"
+              aria-label="Delete Freelancer"
+              title="Delete Freelancer"
             >
               <FiTrash2 size={20} color="#536DFE" />
             </button>
