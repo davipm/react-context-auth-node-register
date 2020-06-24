@@ -1,6 +1,6 @@
-# Report Incidents
+# Freelancer Platform
 
-List incidents, and track incidents
+Register company's, Freelancer, say your price, and receive contacts 
 
 ### Prerequisites
 
