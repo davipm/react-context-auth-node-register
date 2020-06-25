@@ -64,8 +64,7 @@ function NewFreelancer() {
           <img src={logoImg} alt="Welcome" />
           <h1>New Freelancer</h1>
           <p>
-            Descreva o caso detalhadamente para encontrar um herói para resolver
-            isso.
+            Register a new Freelancer describing your skills
           </p>
           <Link to="/profile" className="back-link">
             <FiArrowLeft size={16} color="#536DFE" />
