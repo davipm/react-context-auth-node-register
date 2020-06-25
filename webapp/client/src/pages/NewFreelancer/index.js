@@ -1,1 +1,1 @@
-export { default } from './NewIncident';
+export { default } from './NewFreelancer';
