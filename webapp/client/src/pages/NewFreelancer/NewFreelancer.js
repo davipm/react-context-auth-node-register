@@ -4,7 +4,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
-import styles from "./newIncident.module.scss";
+import styles from "./newFreelancer.module.scss";
 import logoImg from "../../assets/logo.svg";
 
 function NewFreelancer() {
