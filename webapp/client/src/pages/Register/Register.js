@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
@@ -31,7 +32,10 @@ function Register() {
       alert(`your id is ${data.id}, you need this to logon`);
       history.push("/");
     } catch (error) {
-      alert("Error, try again");
+      toast.error('Error, tray Again!', {
+        hideProgressBar: true,
+        autoClose: 3000
+      });
     }
   }
 
