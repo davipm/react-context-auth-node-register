@@ -1,6 +1,6 @@
 # Freelancer Platform
 
-Register company's, Freelancer, say your price, and receive contacts 
+Register company's, Freelancer, say your price, and receive contacts with simple authentication.
 
 ### Prerequisites
 
@@ -10,7 +10,6 @@ Node.js and Expo.io
 
 * React
 * React Native
-* SASS
 * Styled Component
 * Node
 * SQLite
