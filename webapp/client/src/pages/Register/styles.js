@@ -1,13 +1,12 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the register component.
-// -----------------------------------------------------------------------------
+import styled from "styled-components/macro";
+import { CenterForm } from "../../styles/utils";
 
-.content {
+export const Content = styled(CenterForm)`
   section {
     width: 100%;
     max-width: 380px;
     margin-right: 20px;
-
+    
     h1 {
       margin: 64px 0 32px;
       font-size: 32px;
@@ -24,12 +23,12 @@
       height: auto;
     }
   }
-}
+`;
 
-.inlineInput {
+export const InlineInput = styled.div`
   display: flex;
-
+  
   input + input {
     margin-left: 8px;
   }
-}
+`;

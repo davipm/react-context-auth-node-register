@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./footer.module.scss";
+import {Container} from "./styles";
 
 const Footer = () => (
-  <footer className={styles.footer}>
+  <Container>
     <small>Davi Pereira @2019 - {new Date().getFullYear()}</small>
-  </footer>
+  </Container>
 );
 
 export default Footer;

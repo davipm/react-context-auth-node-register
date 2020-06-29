@@ -1,4 +1,6 @@
-.button {
+import styled from "styled-components/macro";
+
+export const Button = styled.button`
   display: inline-block;
   width: 100%;
   height: 60px;
@@ -12,15 +14,16 @@
   line-height: 60px;
   background-color: var(--btn-primary);
   border: 0;
+  outline: 0;
   border-radius: 8px;
   transition: filter 0.15s ease-in-out;
 
   &:hover {
     filter: brightness(90%);
   }
-}
+`;
 
-.back-link {
+export const BackButton = styled.a`
   display: flex;
   align-items: center;
   margin-top: 40px;
@@ -41,4 +44,4 @@
   &:hover {
     opacity: 0.8;
   }
-}
+`;

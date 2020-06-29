@@ -4,8 +4,11 @@ import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
-import styles from "./newFreelancer.module.scss";
 import logoImg from "../../assets/logo.svg";
+
+import { PageContainer } from "../../styles/utils";
+import { Form, Content } from "./styles";
+import { Button, BackButton } from "../../components/Button";
 
 function NewFreelancer() {
   const history = useHistory();
@@ -58,24 +61,23 @@ function NewFreelancer() {
   }
 
   return (
-    <div className="page-container">
-      <div className={`${styles.content} center-form`}>
+    <PageContainer>
+      <Content>
         <section>
           <img src={logoImg} alt="Welcome" />
           <h1>New Freelancer</h1>
           <p>
             Register a new Freelancer describing your skills
           </p>
-          <Link to="/profile" className="back-link">
+          <BackButton as={Link} to="/profile" className="back-link">
             <FiArrowLeft size={16} color="#536DFE" />
             Back
-          </Link>
+          </BackButton>
         </section>
 
-        <form
+        <Form
           onSubmit={handleNewFreelancer}
           autoComplete="off"
-          className={styles.form}
         >
           <input
             type="text"
@@ -106,12 +108,12 @@ function NewFreelancer() {
             required
           />
 
-          <button className="button" type="submit">
+          <Button type="submit">
             Register
-          </button>
-        </form>
-      </div>
-    </div>
+          </Button>
+        </Form>
+      </Content>
+    </PageContainer>
   );
 }
 

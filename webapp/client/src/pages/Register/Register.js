@@ -5,7 +5,10 @@ import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
-import styles from "./register.module.scss";
+
+import { PageContainer } from "../../styles/utils";
+import { Content, InlineInput } from "./styles";
+import { Button, BackButton } from "../../components/Button";
 
 function Register() {
   const history = useHistory();
@@ -32,9 +35,9 @@ function Register() {
       alert(`your id is ${data.id}, you need this to logon`);
       history.push("/");
     } catch (error) {
-      toast.error('Error, tray Again!', {
+      toast.error("Error, tray Again!", {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
     }
   }
@@ -49,19 +52,17 @@ function Register() {
   }
 
   return (
-    <div className="page-container">
-      <div className={`${styles.content} center-form`}>
+    <PageContainer>
+      <Content>
         <section>
           <Link to="/">
             <img src={logoImg} alt="Welcome" />
           </Link>
           <h1>Register</h1>
-          <p>
-            Register your company and start registering your freelancers
-          </p>
-          <Link to="/" className="back-link">
+          <p>Register your company and start registering your freelancers</p>
+          <BackButton as={Link} to="/">
             <FiArrowLeft size={16} color="#536DFE" />I Have Account
-          </Link>
+          </BackButton>
         </section>
 
         <form onSubmit={handleRegister} autoComplete="off">
@@ -92,7 +93,7 @@ function Register() {
             required
           />
 
-          <div className={styles.inlineInput}>
+          <InlineInput>
             <input
               type="text"
               name="city"
@@ -110,14 +111,12 @@ function Register() {
               onChange={handleChange}
               required
             />
-          </div>
+          </InlineInput>
 
-          <button type="submit" className="button">
-            Register
-          </button>
+          <Button type="submit">Register</Button>
         </form>
-      </div>
-    </div>
+      </Content>
+    </PageContainer>
   );
 }
 

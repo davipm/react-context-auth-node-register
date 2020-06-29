@@ -1,8 +1,6 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the helper classes.
-// -----------------------------------------------------------------------------
+import styled from "styled-components/macro";
 
-.page-container {
+export const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,9 +14,9 @@
     flex-direction: column;
     height: auto;
   }
-}
+`;
 
-.center-form {
+export const CenterForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,4 +31,4 @@
     width: 95%;
     padding: 15px;
   }
-}
+`;
