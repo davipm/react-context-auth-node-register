@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
-import styles from "./profile.module.scss";
+
+import { ProfileContainer, ProfileHeader, ProfileButton, ProfileList } from "./styles";
+import { Button } from "../../components/Button";
 
 function Profile() {
   const history = useHistory();
@@ -94,40 +96,38 @@ function Profile() {
   }
 
   return (
-    <div className={styles.profileContainer}>
-      <header className={styles.profileHeader}>
+    <ProfileContainer>
+      <ProfileHeader>
         <img src={logoImg} alt="Welcome" />
         <span>Welcome {companyName}</span>
 
-        <Link to="/freelancer/new" className="button">
+        <Button as={Link} to="/freelancer/new">
           New Freelancer
-        </Link>
+        </Button>
 
         <div>
-          <button
-            className={styles.profileButton}
+          <ProfileButton
             type="button"
             onClick={deleteCompany}
             aria-label="Delete Ong"
             title="Delete Company"
           >
             <FiTrash2 size={20} color="#a8a8b3" />
-          </button>
-          <button
-            className={styles.profileButton}
+          </ProfileButton>
+          <ProfileButton
             type="button"
             onClick={handleLogout}
             aria-label="Log out"
             title="Log out"
           >
             <FiPower size={18} color="#536DFE" />
-          </button>
+          </ProfileButton>
         </div>
-      </header>
+      </ProfileHeader>
 
       <h1>Freelancers registered</h1>
 
-      <ul className={styles.profileList}>
+      <ProfileList>
         {freelancer.map((item) => (
           <li key={item.id}>
             <strong>NAME:</strong>
@@ -154,8 +154,8 @@ function Profile() {
             </button>
           </li>
         ))}
-      </ul>
-    </div>
+      </ProfileList>
+    </ProfileContainer>
   );
 }
 

@@ -1,8 +1,6 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the profile component.
-// -----------------------------------------------------------------------------
+import styled from "styled-components/macro";
 
-.profileContainer {
+export const ProfileContainer = styled.div`
   width: 100%;
   max-width: 1180px;
   min-height: calc(100vh - 112px);
@@ -13,9 +11,9 @@
     margin-bottom: 0;
     padding-bottom: 30px;
   }
-}
+`;
 
-.profileHeader {
+export const ProfileHeader = styled.header`
   display: flex;
   align-items: center;
 
@@ -33,12 +31,10 @@
     margin-left: auto;
     margin-top: 0;
   }
-}
-
-@media (max-width: 576px) {
-  .profileHeader {
+  
+  @media (max-width: 576px) {
     flex-direction: column;
-
+    
     img {
       margin-bottom: 1rem;
     }
@@ -49,9 +45,9 @@
       margin-bottom: 1rem;
     }
   }
-}
+`;
 
-.profileButton {
+export const ProfileButton = styled.button`
   width: 60px;
   height: 60px;
   margin-left: 16px;
@@ -69,9 +65,9 @@
   &:hover {
     border-color: var(--border-color-hover);
   }
-}
+`;
 
-.profileList {
+export const ProfileList = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
@@ -123,4 +119,4 @@
       font-size: 16px;
     }
   }
-}
+`;

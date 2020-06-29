@@ -1,4 +1,3 @@
-import "./assets/styles/main.scss";
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import ReactDOM from "react-dom";

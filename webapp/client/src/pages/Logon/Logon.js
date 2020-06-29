@@ -4,9 +4,12 @@ import { FiLogIn } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
-import styles from "./logon.module.scss";
 import logoImg from "../../assets/logo.svg";
 import heroImg from "../../assets/hero.svg";
+
+import { PageContainer } from "../../styles/utils";
+import { Form, Hero } from "./styles";
+import { Button, BackButton } from "../../components/Button";
 
 function Logon() {
   const [id, setId] = useState(localStorage.getItem("companyId") || "");
@@ -28,15 +31,15 @@ function Logon() {
     } catch (error) {
       toast.error(`${error}`, {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
     }
   }
 
   return (
-    <div className="page-container" data-testid="logon">
-      <section className={styles.form}>
-        <img src={logoImg} alt="Welcome" className={styles.logoImg} />
+    <PageContainer>
+      <Form>
+        <img src={logoImg} alt="Welcome" className="logo" />
 
         <form onSubmit={handleLogin} autoComplete="off">
           <h1>Do your Login</h1>
@@ -49,19 +52,19 @@ function Logon() {
             required
           />
 
-          <button className="button" type="submit" data-testid="submit">
+          <Button type="submit" data-testid="submit">
             Login
-          </button>
+          </Button>
 
-          <Link to="/register" className="back-link">
+          <BackButton as={Link} to="/register" className="back-link">
             <FiLogIn size={16} color="#536DFE" />
             Create account
-          </Link>
+          </BackButton>
         </form>
-      </section>
+      </Form>
 
-      <img src={heroImg} alt="Heroes" className={styles.img} />
-    </div>
+      <Hero src={heroImg} alt="Heroes" />
+    </PageContainer>
   );
 }
 
