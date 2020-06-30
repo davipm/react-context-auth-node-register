@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 
 export const PageContainer = styled.div`
   display: flex;
@@ -31,4 +31,15 @@ export const CenterForm = styled.div`
     width: 95%;
     padding: 15px;
   }
+`;
+
+export const Input = styled.input`
+  ${({ error }) => error && css`
+    color: #dc3545;
+    border-color: #dc3545;
+    
+    &::placeholder {
+      color: #dc3545;
+    }
+  `}
 `;

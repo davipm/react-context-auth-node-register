@@ -10,6 +10,7 @@ export const Button = styled.button`
   text-align: center;
   font-size: 18px;
   vertical-align: middle;
+  user-select: none;
   text-decoration: none;
   line-height: 60px;
   background-color: var(--btn-primary);

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 import { FiLogIn } from "react-icons/fi";
 import { toast } from "react-toastify";
 
@@ -7,24 +8,18 @@ import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
 import heroImg from "../../assets/hero.svg";
 
-import { PageContainer } from "../../styles/utils";
+import { PageContainer, Input } from "../../styles/utils";
 import { Form, Hero } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
 function Logon() {
-  const [id, setId] = useState(localStorage.getItem("companyId") || "");
+  const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
 
-  /**
-   *
-   * @param event
-   * @returns {Promise<void>}
-   */
-  async function handleLogin(event) {
-    event.preventDefault();
+  async function onSubmit(data) {
     try {
-      const { data: { name } } = await api.post("/sessions", { id });
-      localStorage.setItem("companyId", id);
+      const { data: { name } } = await api.post("/sessions", data );
+      localStorage.setItem("companyId", data.id);
       localStorage.setItem("companyName", name);
 
       history.push("/profile");
@@ -41,15 +36,16 @@ function Logon() {
       <Form>
         <img src={logoImg} alt="Welcome" className="logo" />
 
-        <form onSubmit={handleLogin} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <h1>Do your Login</h1>
 
-          <input
+          <Input
             type="text"
+            name="id"
+            error={errors.id}
             placeholder="Your ID"
-            value={id}
-            onChange={(event) => setId(event.target.value)}
-            required
+            defaultValue={localStorage.getItem('companyId') || ''}
+            ref={register({ required: true })}
           />
 
           <Button type="submit" data-testid="submit">
