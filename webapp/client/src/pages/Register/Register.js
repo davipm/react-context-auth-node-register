@@ -1,54 +1,31 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
 
-import { PageContainer } from "../../styles/utils";
+import { PageContainer, Input } from "../../styles/utils";
 import { Content, InlineInput } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
 function Register() {
   const history = useHistory();
-  const [userInput, setUserInput] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      name: "",
-      email: "",
-      whatsapp: "",
-      city: "",
-      uf: "",
-    }
-  );
+  const { register, errors, handleSubmit } = useForm();
 
-  /**
-   *
-   * @param event
-   * @returns {Promise<void>}
-   */
-  async function handleRegister(event) {
-    event.preventDefault();
+  async function onSubmit(data) {
     try {
-      const { data } = await api.post("/companys", userInput);
-      alert(`your id is ${data.id}, you need this to logon`);
-      history.push("/");
+      const { data: { id } } = await api.post('/companys', data);
+      alert(`your id is ${id}, you need this to logon`);
+      history.push('/');
     } catch (error) {
       toast.error("Error, tray Again!", {
         hideProgressBar: true,
         autoClose: 3000,
       });
     }
-  }
-
-  /**
-   *
-   * @param event
-   */
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setUserInput({ [name]: value });
   }
 
   return (
@@ -65,51 +42,43 @@ function Register() {
           </BackButton>
         </section>
 
-        <form onSubmit={handleRegister} autoComplete="off">
-          <input
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+          <Input
             type="text"
             name="name"
             placeholder="Name"
-            value={userInput.name}
-            onChange={handleChange}
-            required
+            error={errors.name}
+            ref={register({ required: true, minLength: 4 })}
           />
-
-          <input
+          <Input
             type="email"
             name="email"
             placeholder="E-Mail"
-            value={userInput.email}
-            onChange={handleChange}
-            required
+            error={errors.email}
+            ref={register({ required: true })}
           />
-
-          <input
+          <Input
             type="tel"
             name="whatsapp"
             placeholder="WhatsApp"
-            value={userInput.whatsapp}
-            onChange={handleChange}
-            required
+            error={errors.whatsapp}
+            ref={register({ required: true })}
           />
 
           <InlineInput>
-            <input
+            <Input
               type="text"
               name="city"
               placeholder="City"
-              value={userInput.city}
-              onChange={handleChange}
-              required
+              error={errors.city}
+              ref={register({ required: true })}
             />
-
-            <input
+            <Input
               type="text"
               name="uf"
               placeholder="UF"
-              value={userInput.uf}
-              onChange={handleChange}
-              required
+              error={errors.uf}
+              ref={register({ required: true, minLength: 2, maxLength: 2 })}
             />
           </InlineInput>
 

@@ -1,40 +1,27 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
 
-import { PageContainer } from "../../styles/utils";
+import { PageContainer, Input } from "../../styles/utils";
 import { Form, Content } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
 function NewFreelancer() {
   const history = useHistory();
   const companyId = localStorage.getItem("companyId");
-  const [userInput, setUserInput] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      title: "",
-      description: "",
-      value: "",
-    }
-  );
+  const { register, errors, handleSubmit } = useForm();
 
-  /**
-   *
-   * @param event
-   * @returns {Promise<void>}
-   */
-  async function handleNewFreelancer(event) {
-    event.preventDefault();
-
+  async function onSubmit(data) {
     try {
-      await api.post("/freelancer", userInput, {
+      await api.post('/freelancer', data, {
         headers: {
-          Authorization: companyId,
-        },
+          Authorization: companyId
+        }
       });
 
       toast.success('New Freelancer created!', {
@@ -42,22 +29,13 @@ function NewFreelancer() {
         autoClose: 3000
       });
 
-      history.push("/profile");
+      history.push('/profile');
     } catch (error) {
       toast.error('Error, tray Again!', {
         hideProgressBar: true,
         autoClose: 3000
       });
     }
-  }
-
-  /**
-   *
-   * @param event
-   */
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setUserInput({ [name]: value });
   }
 
   return (
@@ -75,37 +53,29 @@ function NewFreelancer() {
           </BackButton>
         </section>
 
-        <Form
-          onSubmit={handleNewFreelancer}
-          autoComplete="off"
-        >
-          <input
+        <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+          <Input
             type="text"
             name="title"
-            id="title"
-            placeholder="Name"
-            value={userInput.title}
-            onChange={handleChange}
-            required
+            placeholder="Name*"
+            error={errors.title}
+            ref={register({ required: true })}
           />
-          <textarea
+          <Input
+            as="textarea"
             name="description"
-            id="description"
-            placeholder="Description"
+            placeholder="Description*"
             cols="30"
             rows="10"
-            value={userInput.description}
-            onChange={handleChange}
-            required
+            error={errors.description}
+            ref={register({ required: true })}
           />
-          <input
+          <Input
             type="number"
             name="value"
-            id="value"
-            placeholder="Price $"
-            value={userInput.value}
-            onChange={handleChange}
-            required
+            placeholder="Price $*"
+            error={errors.value}
+            ref={register({ required: true })}
           />
 
           <Button type="submit">
