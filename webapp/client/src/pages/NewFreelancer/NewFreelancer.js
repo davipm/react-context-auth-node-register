@@ -18,22 +18,22 @@ function NewFreelancer() {
 
   async function onSubmit(data) {
     try {
-      await api.post('/freelancer', data, {
+      await api.post("/freelancer", data, {
         headers: {
-          Authorization: companyId
-        }
+          Authorization: companyId,
+        },
       });
 
-      toast.success('New Freelancer created!', {
+      toast.success("New Freelancer created!", {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
 
-      history.push('/profile');
+      history.push("/profile");
     } catch (error) {
-      toast.error('Error, tray Again!', {
+      toast.error("Error, tray Again!", {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
     }
   }
@@ -44,9 +44,7 @@ function NewFreelancer() {
         <section>
           <img src={logoImg} alt="Welcome" />
           <h1>New Freelancer</h1>
-          <p>
-            Register a new Freelancer describing your skills
-          </p>
+          <p>Register a new Freelancer describing your skills</p>
           <BackButton as={Link} to="/profile" className="back-link">
             <FiArrowLeft size={16} color="#536DFE" />
             Back
@@ -78,9 +76,7 @@ function NewFreelancer() {
             ref={register({ required: true })}
           />
 
-          <Button type="submit">
-            Register
-          </Button>
+          <Button type="submit">Register</Button>
         </Form>
       </Content>
     </PageContainer>

@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const Form = styled.section`
+export const Section = styled.section`
   width: 100%;
   max-width: 350px;
   margin-right: auto;

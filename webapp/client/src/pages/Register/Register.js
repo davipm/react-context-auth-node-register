@@ -17,9 +17,9 @@ function Register() {
 
   async function onSubmit(data) {
     try {
-      const { data: { id } } = await api.post('/companys', data);
+      const { data: { id } } = await api.post("/companys", data);
       alert(`your id is ${id}, you need this to logon`);
-      history.push('/');
+      history.push("/");
     } catch (error) {
       toast.error("Error, tray Again!", {
         hideProgressBar: true,

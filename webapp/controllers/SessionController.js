@@ -9,13 +9,13 @@ import connection from "../database/connection";
 export const createSession = async (request, response) => {
   try {
     const { id } = request.body;
-    const ong = await connection("companys").where("id", id).select("name").first();
+    const companys = await connection("companys").where("id", id).select("name").first();
 
-    if (!ong) {
+    if (!companys) {
       return response.status(400).json({ error: "No Company found with this ID" });
     }
 
-    return response.status(200).json(ong);
+    return response.status(200).json(companys);
   } catch (error) {
     return response.status(500).json({ error: "Server Error" });
   }
