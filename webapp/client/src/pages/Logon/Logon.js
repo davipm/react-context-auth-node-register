@@ -1,42 +1,26 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { FiLogIn } from "react-icons/fi";
-import { toast } from "react-toastify";
 
-import api from "../../services/api";
+import { useAuth } from "../../contexts/auth";
 import logoImg from "../../assets/logo.svg";
 import heroImg from "../../assets/hero.svg";
 
 import { PageContainer, Input } from "../../styles/utils";
-import { Form, Hero } from "./styles";
+import { Section, Hero } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
 function Logon() {
   const { register, handleSubmit, errors } = useForm();
-  const history = useHistory();
-
-  async function onSubmit(data) {
-    try {
-      const { data: { name } } = await api.post("/sessions", data );
-      localStorage.setItem("companyId", data.id);
-      localStorage.setItem("companyName", name);
-
-      history.push("/profile");
-    } catch (error) {
-      toast.error(`${error}`, {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
-    }
-  }
+  const { singIn } = useAuth();
 
   return (
     <PageContainer>
-      <Form>
+      <Section>
         <img src={logoImg} alt="Welcome" className="logo" />
 
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(singIn)} autoComplete="off">
           <h1>Do your Login</h1>
 
           <Input
@@ -44,7 +28,7 @@ function Logon() {
             name="id"
             error={errors.id}
             placeholder="Your ID"
-            defaultValue={localStorage.getItem('companyId') || ''}
+            defaultValue={localStorage.getItem("companyId") || ""}
             ref={register({ required: true })}
           />
 
@@ -57,7 +41,7 @@ function Logon() {
             Create account
           </BackButton>
         </form>
-      </Form>
+      </Section>
 
       <Hero src={heroImg} alt="Heroes" />
     </PageContainer>

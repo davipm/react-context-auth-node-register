@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FiPower, FiTrash2 } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 import api from "../../services/api";
+import { useAuth } from "../../contexts/auth";
 import logoImg from "../../assets/logo.svg";
 
-import { ProfileContainer, ProfileHeader, ProfileButton, ProfileList } from "./styles";
+import {
+  ProfileContainer,
+  ProfileHeader,
+  ProfileButton,
+  ProfileList,
+} from "./styles";
 import { Button } from "../../components/Button";
 
 function Profile() {
-  const history = useHistory();
-  const companyId = localStorage.getItem("companyId");
-  const companyName = localStorage.getItem("companyName");
+  const { user, companyId, singOut } = useAuth();
   const [freelancer, setFreelancer] = useState([]);
 
   useEffect(() => {
-    /**
-     *
-     * @returns {Promise<void>}
-     */
     async function handleApi() {
       try {
         const { data } = await api.get("/profile", {
@@ -37,12 +37,6 @@ function Profile() {
     handleApi();
   }, [companyId]);
 
-
-  /**
-   *
-   * @param id
-   * @returns {Promise<void>}
-   */
   async function deleteFreelancer(id) {
     try {
       await api.delete(`/freelancer/${id}`, {
@@ -51,30 +45,20 @@ function Profile() {
         },
       });
 
-      toast.success('Freelancer Deleted!', {
+      toast.success("Freelancer Deleted!", {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
 
       setFreelancer(freelancer.filter((item) => item.id !== id));
     } catch (error) {
-      toast.error('error deleting freelancer, try again', {
+      toast.error("error deleting freelancer, try again", {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
     }
   }
 
-  function handleLogout() {
-    localStorage.clear();
-    history.push("/");
-  }
-
-  /**
-   *
-   * @param event
-   * @returns {Promise<void>}
-   */
   async function deleteCompany(event) {
     event.preventDefault();
 
@@ -83,14 +67,14 @@ function Profile() {
 
       toast.info(`Ong ${companyId} deleted`, {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
 
-      handleLogout();
+      singOut();
     } catch (error) {
-      toast.error('error deleting Company, try again', {
+      toast.error("error deleting Company, try again", {
         hideProgressBar: true,
-        autoClose: 3000
+        autoClose: 3000,
       });
     }
   }
@@ -99,7 +83,7 @@ function Profile() {
     <ProfileContainer>
       <ProfileHeader>
         <img src={logoImg} alt="Welcome" />
-        <span>Welcome {companyName}</span>
+        <span>Welcome {user}</span>
 
         <Button as={Link} to="/freelancer/new">
           New Freelancer
@@ -116,7 +100,7 @@ function Profile() {
           </ProfileButton>
           <ProfileButton
             type="button"
-            onClick={handleLogout}
+            onClick={singOut}
             aria-label="Log out"
             title="Log out"
           >
