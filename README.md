@@ -10,7 +10,9 @@ Node.js and Expo.io
 
 * React
 * React Native
+* React Hooks Form
 * Styled Component
+* Context Api
 * Node
 * SQLite
 
