@@ -45,17 +45,10 @@ function Profile() {
         },
       });
 
-      toast.success("Freelancer Deleted!", {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
-
+      toast.success("Freelancer Deleted!");
       setFreelancer(freelancer.filter((item) => item.id !== id));
     } catch (error) {
-      toast.error("error deleting freelancer, try again", {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
+      toast.error("error deleting freelancer, try again");
     }
   }
 
@@ -64,18 +57,10 @@ function Profile() {
 
     try {
       await api.delete(`/companys/${companyId}`);
-
-      toast.info(`Ong ${companyId} deleted`, {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
-
+      toast.info(`Ong ${companyId} deleted`);
       singOut();
     } catch (error) {
-      toast.error("error deleting Company, try again", {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
+      toast.error("error deleting Company, try again");
     }
   }
 

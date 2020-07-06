@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FiLogIn } from "react-icons/fi";
 
+import { FiLogIn } from "react-icons/fi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAuth } from "../../contexts/auth";
+
 import logoImg from "../../assets/logo.svg";
 import heroImg from "../../assets/hero.svg";
 
@@ -13,7 +15,7 @@ import { Button, BackButton } from "../../components/Button";
 
 function Logon() {
   const { register, handleSubmit, errors } = useForm();
-  const { singIn } = useAuth();
+  const { singIn, loading } = useAuth();
 
   return (
     <PageContainer>
@@ -28,12 +30,12 @@ function Logon() {
             name="id"
             error={errors.id}
             placeholder="Your ID"
-            defaultValue={localStorage.getItem("companyId") || ""}
+            defaultValue={localStorage.getItem('companyId') || ''}
             ref={register({ required: true })}
           />
 
-          <Button type="submit" data-testid="submit">
-            Login
+          <Button type="submit" data-testid="submit" disabled={loading}>
+            Login {loading && <AiOutlineLoading3Quarters size={20} className="loading" />}
           </Button>
 
           <BackButton as={Link} to="/register" className="back-link">

@@ -21,10 +21,7 @@ function Register() {
       alert(`your id is ${id}, you need this to logon`);
       history.push("/");
     } catch (error) {
-      toast.error("Error, tray Again!", {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
+      toast.error("Error, tray Again!");
     }
   }
 

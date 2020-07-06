@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { useAuth } from "../../contexts/auth";
 
 import api from "../../services/api";
 import logoImg from "../../assets/logo.svg";
@@ -13,7 +14,7 @@ import { Button, BackButton } from "../../components/Button";
 
 function NewFreelancer() {
   const history = useHistory();
-  const companyId = localStorage.getItem("companyId");
+  const { companyId } = useAuth();
   const { register, errors, handleSubmit } = useForm();
 
   async function onSubmit(data) {
@@ -24,17 +25,11 @@ function NewFreelancer() {
         },
       });
 
-      toast.success("New Freelancer created!", {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
+      toast.success("New Freelancer created!");
 
       history.push("/profile");
     } catch (error) {
-      toast.error("Error, tray Again!", {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
+      toast.error("Error, tray Again!");
     }
   }
 
