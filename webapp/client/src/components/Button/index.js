@@ -1,7 +1,17 @@
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const Button = styled.button`
   display: inline-block;
+  position: relative;
   width: 100%;
   height: 60px;
   margin-top: 16px;
@@ -21,6 +31,17 @@ export const Button = styled.button`
 
   &:hover {
     filter: brightness(90%);
+  }
+  
+  &:disabled {
+    filter: brightness(50%);
+  }
+  
+  > .loading {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    animation: ${rotate} .5s ease-in-out infinite;
   }
 `;
 
