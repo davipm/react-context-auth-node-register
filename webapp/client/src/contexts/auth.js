@@ -1,45 +1,50 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { SING_OUT, FETCH, SING_IN } from "./actionTypes";
+import authReducer from "./authReducer";
 import api from "../services/api";
 
-const AuthContext = createContext({});
+const initialState = {
+  loading: null,
+  user: localStorage.getItem("name") || null,
+  companyId: localStorage.getItem("companyId") || null
+}
+
+const AuthContext = createContext(initialState);
 
 function AuthProvider({ children }) {
   const history = useHistory();
-  const [user, setUser] = useState(localStorage.getItem("name") || null);
-  const [companyId, setCompanyId] = useState(
-    localStorage.getItem("companyId") || null
-  );
+  const [state, dispatch] = useReducer(authReducer, initialState);
+  const { user } = state;
 
   async function singIn(data) {
+    const { id } = data;
+    dispatch({ type: FETCH});
+
     try {
       const { data: { name } } = await api.post("/sessions", data);
-      setUser(name);
-      setCompanyId(data.id);
+      dispatch({ type: SING_IN, payload: { name, id } });
 
       localStorage.setItem("name", name);
-      localStorage.setItem("companyId", data.id);
+      localStorage.setItem("companyId", id);
 
       history.push("/profile");
     } catch (error) {
-      toast.error(`${error}`, {
-        hideProgressBar: true,
-        autoClose: 3000,
-      });
+      toast.error(`${error}`);
     }
   }
 
   function singOut() {
     localStorage.clear();
-    setUser(null);
+    dispatch({ type: SING_OUT });
     history.push("/");
   }
 
   return (
     <AuthContext.Provider
-      value={{ singned: !!user, user, companyId, singIn, singOut }}
+      value={{ singned: !!user, ...state, singIn, singOut }}
     >
       {children}
     </AuthContext.Provider>

@@ -11,7 +11,11 @@ function App() {
       <Routes />
       <Footer />
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+      />
       <Global />
     </div>
   );
