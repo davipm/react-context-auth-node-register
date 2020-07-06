@@ -2,6 +2,8 @@ import React, { createContext, useContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { SING_OUT, FETCH, SING_IN } from "./actionTypes";
+import authReducer from "./authReducer";
 import api from "../services/api";
 
 const initialState = {
@@ -10,36 +12,33 @@ const initialState = {
   companyId: localStorage.getItem("companyId") || null
 }
 
-const AuthContext = createContext({});
+const AuthContext = createContext(initialState);
 
 function AuthProvider({ children }) {
   const history = useHistory();
-  const [state, setState] = useReducer((state, newState) =>
-    ({...state, ...newState}), initialState
-  );
+  const [state, dispatch] = useReducer(authReducer, initialState);
   const { user } = state;
 
   async function singIn(data) {
-    setState({ loading: true });
+    const { id } = data;
+    dispatch({ type: FETCH});
 
     try {
       const { data: { name } } = await api.post("/sessions", data);
-      setState({ user: name, companyId: data.id });
+      dispatch({ type: SING_IN, payload: { name, id } });
 
       localStorage.setItem("name", name);
-      localStorage.setItem("companyId", data.id);
+      localStorage.setItem("companyId", id);
 
       history.push("/profile");
     } catch (error) {
       toast.error(`${error}`);
     }
-
-    setState({ loading: false });
   }
 
   function singOut() {
     localStorage.clear();
-    setState({ user: null });
+    dispatch({ type: SING_OUT });
     history.push("/");
   }
 
