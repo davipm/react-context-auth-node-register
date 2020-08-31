@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import Global from "./styles/Global";
+import Global from "./styles/global";
 
 import Routes from "./routes";
 import Footer from "./components/Footer";
