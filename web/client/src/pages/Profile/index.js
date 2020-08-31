@@ -20,7 +20,7 @@ function Profile() {
   const [freelancer, setFreelancer] = useState([]);
 
   useEffect(() => {
-    async function handleApi() {
+    (async function handleApi() {
       try {
         const { data } = await api.get("/profile", {
           headers: {
@@ -32,9 +32,7 @@ function Profile() {
       } catch (error) {
         console.log("error profile");
       }
-    }
-
-    handleApi();
+    })();
   }, [companyId]);
 
   async function deleteFreelancer(id) {
