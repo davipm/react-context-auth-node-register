@@ -1,4 +1,5 @@
-import 'react-toastify/dist/ReactToastify.css';
+import "react-confirm-alert/src/react-confirm-alert.css";
+import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
