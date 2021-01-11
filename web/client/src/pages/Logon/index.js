@@ -6,14 +6,14 @@ import { FiLogIn } from "react-icons/fi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAuth } from "../../contexts/auth";
 
-import logoImg from "../../assets/logo.svg";
-import heroImg from "../../assets/hero.svg";
+import logoImg from "../../images/logo.svg";
+import heroImg from "../../images/hero.svg";
 
 import { PageContainer, Input } from "../../styles/utils";
 import { Section, Hero } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
-function Logon() {
+export default function Logon() {
   const { register, handleSubmit, errors } = useForm();
   const { singIn, loading } = useAuth();
 
@@ -49,5 +49,3 @@ function Logon() {
     </PageContainer>
   );
 }
-
-export default Logon;
