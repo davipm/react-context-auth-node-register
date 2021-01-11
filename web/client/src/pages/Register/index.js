@@ -3,23 +3,42 @@ import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { confirmAlert } from "react-confirm-alert";
 
 import api from "../../services/api";
-import logoImg from "../../assets/logo.svg";
+import logoImg from "../../images/logo.svg";
 
 import { PageContainer, Input } from "../../styles/utils";
 import { Content, InlineInput } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
-function Register() {
+export default function Register() {
   const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
 
   async function onSubmit(data) {
     try {
-      const { data: { id } } = await api.post("/companys", data);
-      alert(`your id is ${id}, you need this to logon`);
-      history.push("/");
+      const {
+        data: { id },
+      } = await api.post("/companys", data);
+
+      confirmAlert({
+        title: "Save your ID",
+        childrenElement: () => (
+          <p>
+            your <strong>ID</strong> is <strong>{id}</strong>, you need this to
+            logon
+          </p>
+        ),
+        closeOnEscape: false,
+        closeOnClickOutside: false,
+        buttons: [
+          {
+            label: "Ok!",
+            onClick: () => history.push("/"),
+          },
+        ],
+      });
     } catch (error) {
       toast.error("Error, tray Again!");
     }
@@ -32,8 +51,10 @@ function Register() {
           <Link to="/">
             <img src={logoImg} alt="Welcome" />
           </Link>
+
           <h1>Register</h1>
           <p>Register your company and start registering your freelancers</p>
+
           <BackButton as={Link} to="/">
             <FiArrowLeft size={16} color="#536DFE" />I Have Account
           </BackButton>
@@ -47,6 +68,7 @@ function Register() {
             error={errors.name}
             ref={register({ required: true, minLength: 4 })}
           />
+
           <Input
             type="email"
             name="email"
@@ -54,6 +76,7 @@ function Register() {
             error={errors.email}
             ref={register({ required: true })}
           />
+
           <Input
             type="tel"
             name="whatsapp"
@@ -70,6 +93,7 @@ function Register() {
               error={errors.city}
               ref={register({ required: true })}
             />
+
             <Input
               type="text"
               name="uf"
@@ -85,5 +109,3 @@ function Register() {
     </PageContainer>
   );
 }
-
-export default Register;

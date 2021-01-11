@@ -20,7 +20,7 @@ import {
   DetailsButtonText,
 } from "./styles";
 
-function Freelancers() {
+export default function Freelancers() {
   const navigation = useNavigation();
   const [freelancer, setFreelancer] = useState([]);
   const [total, setTotal] = useState(0);
@@ -98,5 +98,3 @@ function Freelancers() {
     </Container>
   );
 }
-
-export default Freelancers;

@@ -6,13 +6,13 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../contexts/auth";
 
 import api from "../../services/api";
-import logoImg from "../../assets/logo.svg";
+import logoImg from "../../images/logo.svg";
 
 import { PageContainer, Input } from "../../styles/utils";
 import { Form, Content } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
-function NewFreelancer() {
+export default function NewFreelancer() {
   const history = useHistory();
   const { companyId } = useAuth();
   const { register, errors, handleSubmit } = useForm();
@@ -77,5 +77,3 @@ function NewFreelancer() {
     </PageContainer>
   );
 }
-
-export default NewFreelancer;

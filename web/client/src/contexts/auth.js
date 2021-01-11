@@ -9,8 +9,8 @@ import api from "../services/api";
 const initialState = {
   loading: null,
   user: localStorage.getItem("name") || null,
-  companyId: localStorage.getItem("companyId") || null
-}
+  companyId: localStorage.getItem("companyId") || null,
+};
 
 const AuthContext = createContext(initialState);
 
@@ -21,10 +21,12 @@ function AuthProvider({ children }) {
 
   async function singIn(data) {
     const { id } = data;
-    dispatch({ type: FETCH});
+    dispatch({ type: FETCH });
 
     try {
-      const { data: { name } } = await api.post("/sessions", data);
+      const {
+        data: { name },
+      } = await api.post("/sessions", data);
       dispatch({ type: SING_IN, payload: { name, id } });
 
       localStorage.setItem("name", name);

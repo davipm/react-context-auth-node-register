@@ -19,7 +19,7 @@ import {
   HeroTitle,
 } from "./styles";
 
-function Details() {
+export default function Details() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -98,5 +98,3 @@ function Details() {
     </Container>
   );
 }
-
-export default Details;

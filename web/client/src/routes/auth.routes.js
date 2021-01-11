@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Profile from "../pages/Profile";
 import NewFreelancer from "../pages/NewFreelancer";
 
-function AuthRoutes() {
+export default function AuthRoutes() {
   return (
     <Switch>
       <Route path="/profile" exact component={Profile} />
@@ -13,5 +13,3 @@ function AuthRoutes() {
     </Switch>
   );
 }
-
-export default AuthRoutes;

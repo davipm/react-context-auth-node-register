@@ -5,20 +5,22 @@ export default (state, action) => {
     case FETCH:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case SING_IN:
       return {
         ...state,
         loading: false,
         user: action.payload.name,
-        companyId: action.payload.id
-      }
+        companyId: action.payload.id,
+      };
     case SING_OUT:
       return {
         ...state,
         loading: false,
         user: null,
-      }
+      };
+    default:
+      return state;
   }
-}
+};

@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Logon from "../pages/Logon";
 import Register from "../pages/Register";
 
-function AppRoutes() {
+export default function AppRoutes() {
   return (
     <Switch>
       <Route path="/" exact component={Logon} />
@@ -13,5 +13,3 @@ function AppRoutes() {
     </Switch>
   );
 }
-
-export default AppRoutes;

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import { useAuth } from "../../contexts/auth";
-import logoImg from "../../assets/logo.svg";
+import logoImg from "../../images/logo.svg";
 
 import {
   ProfileContainer,
@@ -15,7 +15,7 @@ import {
 } from "./styles";
 import { Button } from "../../components/Button";
 
-function Profile() {
+export default function Profile() {
   const { user, companyId, singOut } = useAuth();
   const [freelancer, setFreelancer] = useState([]);
 
@@ -55,7 +55,7 @@ function Profile() {
 
     try {
       await api.delete(`/companys/${companyId}`);
-      toast.info(`Ong ${companyId} deleted`);
+      toast.info(`Ong ${user} deleted`);
       singOut();
     } catch (error) {
       toast.error("error deleting Company, try again");
@@ -125,5 +125,3 @@ function Profile() {
     </ProfileContainer>
   );
 }
-
-export default Profile;
