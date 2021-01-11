@@ -14,7 +14,7 @@ const initialState = {
 
 const AuthContext = createContext(initialState);
 
-function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
   const history = useHistory();
   const [state, dispatch] = useReducer(authReducer, initialState);
   const { user } = state;
@@ -52,8 +52,6 @@ function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-export default AuthProvider;
 
 export function useAuth() {
   return useContext(AuthContext);
