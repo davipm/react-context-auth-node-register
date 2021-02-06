@@ -1,11 +1,11 @@
-import React from "react";
 import { ToastContainer } from "react-toastify";
+import { ReactQueryDevtools } from "react-query/devtools";
 import Global from "./styles/global";
 
 import Routes from "./routes";
-import Footer from "./components/Footer";
+import Footer from "./container/Footer";
 
-function App() {
+export default function App() {
   return (
     <div id="app">
       <Routes />
@@ -17,8 +17,7 @@ function App() {
         hideProgressBar={true}
       />
       <Global />
+      <ReactQueryDevtools initialIsOpen={false} />
     </div>
   );
 }
-
-export default App;
