@@ -11,6 +11,7 @@ Node.js and Expo.io
 * React
 * React Native
 * React Hooks Form
+* react-query
 * Styled Component
 * Context Api
 * Node
