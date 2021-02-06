@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiPower, FiTrash2 } from "react-icons/fi";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
-import api from "../../services/api";
+import api, { loadProfile, deleteProfile } from "../../services/api";
 import { useAuth } from "../../contexts/auth";
 import logoImg from "../../images/logo.svg";
 
@@ -13,42 +13,26 @@ import {
   ProfileButton,
   ProfileList,
 } from "./styles";
+
 import { Button } from "../../components/Button";
 
 export default function Profile() {
+  const queryClient = useQueryClient();
   const { user, companyId, singOut } = useAuth();
-  const [freelancer, setFreelancer] = useState([]);
 
-  useEffect(() => {
-    (async function handleApi() {
-      try {
-        const { data } = await api.get("/profile", {
-          headers: {
-            Authorization: companyId,
-          },
-        });
+  const { data: freelancer, isLoading, error } = useQuery(
+    "profiles",
+    async () => await loadProfile(companyId)
+  );
 
-        setFreelancer(data);
-      } catch (error) {
-        console.log("error profile");
-      }
-    })();
-  }, [companyId]);
-
-  async function deleteFreelancer(id) {
-    try {
-      await api.delete(`/freelancer/${id}`, {
-        headers: {
-          Authorization: companyId,
-        },
-      });
-
-      toast.success("Freelancer Deleted!");
-      setFreelancer(freelancer.filter((item) => item.id !== id));
-    } catch (error) {
-      toast.error("error deleting freelancer, try again");
+  const onDeleteProfile = useMutation(
+    async (id) => await deleteProfile(id, companyId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("profiles");
+      },
     }
-  }
+  );
 
   async function deleteCompany(event) {
     event.preventDefault();
@@ -95,7 +79,10 @@ export default function Profile() {
       <h1>Freelancers registered</h1>
 
       <ProfileList>
-        {freelancer.map((item) => (
+        {isLoading && <h3>Loading...</h3>}
+        {error && <h3>Error!</h3>}
+
+        {freelancer?.map((item) => (
           <li key={item.id}>
             <strong>NAME:</strong>
             <p>{item.title}</p>
@@ -113,7 +100,7 @@ export default function Profile() {
 
             <button
               type="button"
-              onClick={() => deleteFreelancer(item.id)}
+              onClick={() => onDeleteProfile.mutate(item.id)}
               aria-label="Delete Freelancer"
               title="Delete Freelancer"
             >

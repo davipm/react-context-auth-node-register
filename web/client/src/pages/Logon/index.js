@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -15,7 +14,7 @@ import { Button, BackButton } from "../../components/Button";
 
 export default function Logon() {
   const { register, handleSubmit, errors } = useForm();
-  const { singIn, loading } = useAuth();
+  const { singIn, loading, error } = useAuth();
 
   return (
     <PageContainer>
@@ -30,12 +29,16 @@ export default function Logon() {
             name="id"
             error={errors.id}
             placeholder="Your ID"
-            defaultValue={localStorage.getItem('companyId') || ''}
+            defaultValue={localStorage.getItem("companyId") || ""}
             ref={register({ required: true })}
           />
+          {error && <i>Some problem happen!</i>}
 
           <Button type="submit" data-testid="submit" disabled={loading}>
-            Login {loading && <AiOutlineLoading3Quarters size={20} className="loading" />}
+            Login{" "}
+            {loading && (
+              <AiOutlineLoading3Quarters size={20} className="loading" />
+            )}
           </Button>
 
           <BackButton as={Link} to="/register" className="back-link">
