@@ -1,13 +1,14 @@
-import React, { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { SING_OUT, FETCH, SING_IN } from "./actionTypes";
+import { SING_OUT, FETCH, SING_IN, ERROR } from "./actionTypes";
 import authReducer from "./authReducer";
 import api from "../services/api";
 
 const initialState = {
   loading: null,
+  error: null,
   user: localStorage.getItem("name") || null,
   companyId: localStorage.getItem("companyId") || null,
 };
@@ -17,7 +18,6 @@ const AuthContext = createContext(initialState);
 export default function AuthProvider({ children }) {
   const history = useHistory();
   const [state, dispatch] = useReducer(authReducer, initialState);
-  const { user } = state;
 
   async function singIn(data) {
     const { id } = data;
@@ -34,6 +34,7 @@ export default function AuthProvider({ children }) {
 
       history.push("/profile");
     } catch (error) {
+      dispatch({ type: ERROR });
       toast.error(`${error}`);
     }
   }
@@ -46,7 +47,7 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ singned: !!user, ...state, singIn, singOut }}
+      value={{ singned: !!state.user, ...state, singIn, singOut }}
     >
       {children}
     </AuthContext.Provider>
