@@ -75,7 +75,7 @@ export default function Profile() {
       <h1>Freelancers registered</h1>
 
       <ProfileList>
-        {isLoading && <h3>Loading...</h3>}
+        {isLoading && !error && <h3>Loading...</h3>}
         {error && <h3>Error!</h3>}
 
         {freelancer?.map((item) => (
