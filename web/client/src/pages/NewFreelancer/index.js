@@ -1,6 +1,7 @@
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useMutation } from "react-query";
 
 import { useAuth } from "../../contexts/auth";
@@ -61,7 +62,12 @@ export default function NewFreelancer() {
             ref={register({ required: true })}
           />
 
-          <Button type="submit">Register</Button>
+          <Button type="submit" disabled={mutation.isLoading}>
+            Register
+            {mutation.isLoading && (
+              <AiOutlineLoading3Quarters size={20} className="loading" />
+            )}
+          </Button>
         </Form>
       </Content>
     </PageContainer>

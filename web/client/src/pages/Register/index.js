@@ -1,5 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
@@ -97,7 +98,12 @@ export default function Register() {
             />
           </InlineInput>
 
-          <Button type="submit">Register</Button>
+          <Button type="submit">
+            Register
+            {mutation.isLoading && (
+              <AiOutlineLoading3Quarters size={20} className="loading" />
+            )}
+          </Button>
         </form>
       </Content>
     </PageContainer>

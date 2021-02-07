@@ -34,8 +34,8 @@ export default function Logon() {
           />
           {error && <i>Some problem happen!</i>}
 
-          <Button type="submit" data-testid="submit" disabled={loading}>
-            Login{" "}
+          <Button type="submit" disabled={loading}>
+            Login
             {loading && (
               <AiOutlineLoading3Quarters size={20} className="loading" />
             )}
