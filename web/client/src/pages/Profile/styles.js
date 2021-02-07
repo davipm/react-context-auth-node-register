@@ -1,4 +1,13 @@
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const ProfileContainer = styled.div`
   width: 100%;
@@ -96,7 +105,15 @@ export const ProfileList = styled.ul`
       height: 50px;
       border: 0;
       border-radius: 50%;
+      outline: 0;
       transition: all 0.15s ease-in-out;
+
+      > .loading {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        animation: ${rotate} 0.5s linear infinite;
+      }
 
       &:hover {
         opacity: 0.8;

@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiPower, FiTrash2 } from "react-icons/fi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 
@@ -19,12 +21,13 @@ import { Button } from "../../components/Button";
 export default function Profile() {
   const queryClient = useQueryClient();
   const { user, companyId, singOut } = useAuth();
+  const [activeId, setActiveId] = useState(null);
 
   const { data: freelancer, isLoading, error } = useQuery("profiles", () =>
     loadProfile(companyId)
   );
 
-  const onDeleteProfile = useMutation((id) => deleteProfile(id, companyId), {
+  const onDelete = useMutation((id) => deleteProfile(id, companyId), {
     onSuccess: () => {
       queryClient.invalidateQueries("profiles");
     },
@@ -96,11 +99,22 @@ export default function Profile() {
 
             <button
               type="button"
-              onClick={() => onDeleteProfile.mutate(item.id)}
+              onClick={() => {
+                onDelete.mutate(item.id);
+                setActiveId(item.id);
+              }}
               aria-label="Delete Freelancer"
               title="Delete Freelancer"
             >
-              <FiTrash2 size={20} color="#536DFE" />
+              {onDelete.isLoading && activeId === item.id ? (
+                <AiOutlineLoading3Quarters
+                  size={20}
+                  color="#536DFE"
+                  className="loading"
+                />
+              ) : (
+                <FiTrash2 size={20} color="#536DFE" />
+              )}
             </button>
           </li>
         ))}
