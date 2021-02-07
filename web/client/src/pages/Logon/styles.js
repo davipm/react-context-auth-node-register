@@ -15,8 +15,8 @@ export const Section = styled.section`
   }
 
   h1 {
-    font-size: 32px;
     margin-bottom: 32px;
+    font-size: 32px;
   }
 
   .logo {
