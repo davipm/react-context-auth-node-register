@@ -15,32 +15,33 @@ export default function Register() {
   const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
 
-  async function onSubmit(data) {
+  async function onSubmit(company) {
     try {
-      const {
-        data: { id },
-      } = await api.post("/companys", data);
-
-      confirmAlert({
-        title: "Save your ID",
-        childrenElement: () => (
-          <p>
-            your <strong>ID</strong> is <strong>{id}</strong>, you need this to
-            logon
-          </p>
-        ),
-        closeOnEscape: false,
-        closeOnClickOutside: false,
-        buttons: [
-          {
-            label: "Ok!",
-            onClick: () => history.push("/"),
-          },
-        ],
-      });
+      const { data } = await api.post("/companys", company);
+      mountMessage(data.id);
     } catch (error) {
       toast.error("Error, tray Again!");
     }
+  }
+
+  function mountMessage(id) {
+    confirmAlert({
+      title: "Save your ID",
+      childrenElement: () => (
+        <p>
+          your <strong>ID</strong> is <strong>{id}</strong>, you need this to
+          logon
+        </p>
+      ),
+      closeOnEscape: false,
+      closeOnClickOutside: false,
+      buttons: [
+        {
+          label: "Ok!",
+          onClick: () => history.push("/"),
+        },
+      ],
+    });
   }
 
   return (

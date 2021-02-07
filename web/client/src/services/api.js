@@ -2,17 +2,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export async function loadProfile(companyId) {
-  try {
-    const { data } = await api.get("/profile", {
-      headers: {
-        Authorization: companyId,
-      },
-    });
+  const { data } = await api.get("/profile", {
+    headers: {
+      Authorization: companyId,
+    },
+  });
 
-    return data;
-  } catch (error) {
-    toast.error("error loading freelancer, try again");
-  }
+  return data;
 }
 
 export async function deleteProfile(id, companyId) {

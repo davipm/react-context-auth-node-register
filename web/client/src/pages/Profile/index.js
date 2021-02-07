@@ -20,19 +20,15 @@ export default function Profile() {
   const queryClient = useQueryClient();
   const { user, companyId, singOut } = useAuth();
 
-  const { data: freelancer, isLoading, error } = useQuery(
-    "profiles",
-    async () => await loadProfile(companyId)
+  const { data: freelancer, isLoading, error } = useQuery("profiles", () =>
+    loadProfile(companyId)
   );
 
-  const onDeleteProfile = useMutation(
-    async (id) => await deleteProfile(id, companyId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("profiles");
-      },
-    }
-  );
+  const onDeleteProfile = useMutation((id) => deleteProfile(id, companyId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("profiles");
+    },
+  });
 
   async function deleteCompany(event) {
     event.preventDefault();
