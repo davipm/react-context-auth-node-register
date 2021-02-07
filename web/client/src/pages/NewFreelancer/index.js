@@ -1,10 +1,10 @@
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
-import { toast } from "react-toastify";
-import { useAuth } from "../../contexts/auth";
+import { useMutation } from "react-query";
 
-import api from "../../services/api";
+import { useAuth } from "../../contexts/auth";
+import { createFreelancer } from "../../services/api";
 import logoImg from "../../images/logo.svg";
 
 import { PageContainer, Input } from "../../styles/utils";
@@ -16,21 +16,9 @@ export default function NewFreelancer() {
   const { companyId } = useAuth();
   const { register, errors, handleSubmit } = useForm();
 
-  async function onSubmit(data) {
-    try {
-      await api.post("/freelancer", data, {
-        headers: {
-          Authorization: companyId,
-        },
-      });
-
-      toast.success("New Freelancer created!");
-
-      history.push("/profile");
-    } catch (error) {
-      toast.error("Error, tray Again!");
-    }
-  }
+  const mutation = useMutation((data) => createFreelancer(data, companyId), {
+    onSuccess: () => history.push("/profile"),
+  });
 
   return (
     <PageContainer>
@@ -45,7 +33,10 @@ export default function NewFreelancer() {
           </BackButton>
         </section>
 
-        <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <Form
+          onSubmit={handleSubmit((data) => mutation.mutate(data))}
+          autoComplete="off"
+        >
           <Input
             type="text"
             name="title"

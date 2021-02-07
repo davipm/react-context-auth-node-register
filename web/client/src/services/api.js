@@ -24,6 +24,19 @@ export async function deleteProfile(id, companyId) {
   }
 }
 
+export async function createFreelancer(data, companyId) {
+  try {
+    await api.post("/freelancer", data, {
+      headers: {
+        Authorization: companyId,
+      },
+    });
+    toast.success("New Freelancer created!");
+  } catch (error) {
+    toast.error("Error, tray Again!");
+  }
+}
+
 const api = axios.create({
   baseURL: "http://localhost:3333",
 });
