@@ -10,38 +10,38 @@ const rotate = keyframes`
 `;
 
 export const Button = styled.button`
-  display: inline-block;
   position: relative;
+  display: inline-block;
   width: 100%;
   height: 60px;
   margin-top: 16px;
+  font-size: 18px;
   font-weight: 700;
+  line-height: 60px;
   color: var(--btn-primary-text);
   text-align: center;
-  font-size: 18px;
+  text-decoration: none;
   vertical-align: middle;
   user-select: none;
-  text-decoration: none;
-  line-height: 60px;
   background-color: var(--btn-primary);
   border: 0;
-  outline: 0;
   border-radius: 8px;
+  outline: 0;
   transition: filter 0.15s ease-in-out;
+
+  > .loading {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    animation: ${rotate} 0.5s ease-in-out infinite;
+  }
 
   &:hover {
     filter: brightness(90%);
   }
-  
+
   &:disabled {
     filter: brightness(50%);
-  }
-  
-  > .loading {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    animation: ${rotate} .5s ease-in-out infinite;
   }
 `;
 
@@ -49,10 +49,10 @@ export const BackButton = styled.a`
   display: flex;
   align-items: center;
   margin-top: 40px;
-  color: var(--btn-back-color);
   font-size: 14px;
-  text-decoration: none;
   font-weight: 500;
+  color: var(--btn-back-color);
+  text-decoration: none;
   transition: opacity 0.2s;
 
   @media (max-width: 576px) {

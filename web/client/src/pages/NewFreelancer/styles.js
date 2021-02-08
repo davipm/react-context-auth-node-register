@@ -13,8 +13,8 @@ export const Content = styled(CenterForm)`
 
     p {
       font-size: 18px;
-      color: var(--secondary-text-color);
       line-height: 32px;
+      color: var(--secondary-text-color);
     }
 
     img {

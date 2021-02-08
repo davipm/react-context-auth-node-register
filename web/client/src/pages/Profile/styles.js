@@ -1,4 +1,13 @@
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const ProfileContainer = styled.div`
   width: 100%;
@@ -8,8 +17,8 @@ export const ProfileContainer = styled.div`
   margin: 32px auto 0;
 
   @media (max-width: 576px) {
-    margin-bottom: 0;
     padding-bottom: 30px;
+    margin-bottom: 0;
   }
 `;
 
@@ -18,8 +27,8 @@ export const ProfileHeader = styled.header`
   align-items: center;
 
   span {
-    font-size: 20px;
     margin-left: 24px;
+    font-size: 20px;
   }
 
   img {
@@ -28,21 +37,21 @@ export const ProfileHeader = styled.header`
 
   a {
     width: 260px;
-    margin-left: auto;
     margin-top: 0;
+    margin-left: auto;
   }
-  
+
   @media (max-width: 576px) {
     flex-direction: column;
-    
+
     img {
       margin-bottom: 1rem;
     }
 
     span,
     a {
-      margin-left: 0;
       margin-bottom: 1rem;
+      margin-left: 0;
     }
   }
 `;
@@ -51,8 +60,8 @@ export const ProfileButton = styled.button`
   width: 60px;
   height: 60px;
   margin-left: 16px;
-  border: 1px solid var(--border-color);
   background-color: transparent;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   transition: border-color 0.2s;
 
@@ -71,9 +80,9 @@ export const ProfileList = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  list-style: none;
   padding-left: 0;
   margin: 0;
+  list-style: none;
 
   @media (max-width: 576px) {
     grid-template-columns: 1fr;
@@ -86,17 +95,25 @@ export const ProfileList = styled.ul`
     border-radius: 8px;
 
     button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       position: absolute;
+      top: 24px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 50px;
       height: 50px;
-      right: 24px;
-      top: 24px;
       border: 0;
       border-radius: 50%;
+      outline: 0;
       transition: all 0.15s ease-in-out;
+
+      > .loading {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        animation: ${rotate} 0.5s linear infinite;
+      }
 
       &:hover {
         opacity: 0.8;
@@ -108,15 +125,15 @@ export const ProfileList = styled.ul`
       margin-bottom: 16px;
       color: var(--btn-back-color);
     }
+  }
 
-    p + strong {
+  p {
+    font-size: 16px;
+    line-height: 21px;
+    color: var(--secondary-text-color);
+
+    + strong {
       margin-top: 32px;
-    }
-
-    p {
-      color: var(--secondary-text-color);
-      line-height: 21px;
-      font-size: 16px;
     }
   }
 `;

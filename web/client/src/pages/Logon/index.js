@@ -1,11 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import { FiLogIn } from "react-icons/fi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useAuth } from "../../contexts/auth";
 
+import { useAuth } from "../../contexts/auth";
 import logoImg from "../../images/logo.svg";
 import heroImg from "../../images/hero.svg";
 
@@ -15,7 +13,7 @@ import { Button, BackButton } from "../../components/Button";
 
 export default function Logon() {
   const { register, handleSubmit, errors } = useForm();
-  const { singIn, loading } = useAuth();
+  const { singIn, loading, error } = useAuth();
 
   return (
     <PageContainer>
@@ -30,12 +28,16 @@ export default function Logon() {
             name="id"
             error={errors.id}
             placeholder="Your ID"
-            defaultValue={localStorage.getItem('companyId') || ''}
+            defaultValue={localStorage.getItem("companyId") || ""}
             ref={register({ required: true })}
           />
+          {error && <i>Some problem happen!</i>}
 
-          <Button type="submit" data-testid="submit" disabled={loading}>
-            Login {loading && <AiOutlineLoading3Quarters size={20} className="loading" />}
+          <Button type="submit" disabled={loading}>
+            Login
+            {loading && (
+              <AiOutlineLoading3Quarters size={20} className="loading" />
+            )}
           </Button>
 
           <BackButton as={Link} to="/register" className="back-link">

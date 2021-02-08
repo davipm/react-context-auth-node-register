@@ -1,4 +1,4 @@
-import { SING_IN, FETCH, SING_OUT } from "./actionTypes";
+import { SING_IN, FETCH, SING_OUT, ERROR } from "./actionTypes";
 
 export default (state, action) => {
   switch (action.type) {
@@ -6,6 +6,12 @@ export default (state, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true,
       };
     case SING_IN:
       return {

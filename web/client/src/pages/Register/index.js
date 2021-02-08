@@ -1,9 +1,11 @@
-import React from "react";
+import InputMask from "react-input-mask";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
+import { useMutation } from "react-query";
 
 import api from "../../services/api";
 import logoImg from "../../images/logo.svg";
@@ -16,18 +18,14 @@ export default function Register() {
   const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
 
-  async function onSubmit(data) {
-    try {
-      const {
-        data: { id },
-      } = await api.post("/companys", data);
-
+  const mutation = useMutation((company) => api.post("/companys", company), {
+    onSuccess: ({ data }) => {
       confirmAlert({
         title: "Save your ID",
         childrenElement: () => (
           <p>
-            your <strong>ID</strong> is <strong>{id}</strong>, you need this to
-            logon
+            your <strong>ID</strong> is <strong>{data.id}</strong>, you need
+            this to logon
           </p>
         ),
         closeOnEscape: false,
@@ -39,10 +37,9 @@ export default function Register() {
           },
         ],
       });
-    } catch (error) {
-      toast.error("Error, tray Again!");
-    }
-  }
+    },
+    onError: () => toast.error("Error, tray Again!"),
+  });
 
   return (
     <PageContainer>
@@ -60,7 +57,10 @@ export default function Register() {
           </BackButton>
         </section>
 
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <form
+          onSubmit={handleSubmit((data) => mutation.mutate(data))}
+          autoComplete="off"
+        >
           <Input
             type="text"
             name="name"
@@ -68,7 +68,6 @@ export default function Register() {
             error={errors.name}
             ref={register({ required: true, minLength: 4 })}
           />
-
           <Input
             type="email"
             name="email"
@@ -76,15 +75,15 @@ export default function Register() {
             error={errors.email}
             ref={register({ required: true })}
           />
-
           <Input
             type="tel"
             name="whatsapp"
             placeholder="WhatsApp"
+            mask="(99) 9 9999-9999"
+            as={InputMask}
             error={errors.whatsapp}
             ref={register({ required: true })}
           />
-
           <InlineInput>
             <Input
               type="text"
@@ -93,7 +92,6 @@ export default function Register() {
               error={errors.city}
               ref={register({ required: true })}
             />
-
             <Input
               type="text"
               name="uf"
@@ -103,7 +101,12 @@ export default function Register() {
             />
           </InlineInput>
 
-          <Button type="submit">Register</Button>
+          <Button type="submit">
+            Register
+            {mutation.isLoading && (
+              <AiOutlineLoading3Quarters size={20} className="loading" />
+            )}
+          </Button>
         </form>
       </Content>
     </PageContainer>

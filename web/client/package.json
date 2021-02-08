@@ -10,21 +10,24 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
     "axios": "^0.21.1",
-    "react": "^16.14.0",
-    "react-confirm-alert": "^2.6.2",
-    "react-dom": "^16.14.0",
+    "react": "^17.0.1",
+    "react-confirm-alert": "^2.7.0",
+    "react-dom": "^17.0.1",
     "react-hook-form": "^5.7.2",
     "react-icons": "^3.11.0",
+    "react-input-mask": "^2.0.4",
+    "react-query": "^3.8.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.4",
+    "react-scripts": "^4.0.2",
     "react-toastify": "^6.2.0",
     "styled-components": "^5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:css": "stylelint './src/**/*.js'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +44,12 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3333"
+  "proxy": "http://localhost:3333",
+  "devDependencies": {
+    "stylelint": "^13.9.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^4.1.0",
+    "stylelint-processor-styled-components": "^1.10.0"
+  }
 }
