@@ -29,19 +29,19 @@ export const Button = styled.button`
   outline: 0;
   transition: filter 0.15s ease-in-out;
 
+  > .loading {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    animation: ${rotate} 0.5s ease-in-out infinite;
+  }
+
   &:hover {
     filter: brightness(90%);
   }
 
   &:disabled {
     filter: brightness(50%);
-  }
-
-  > .loading {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    animation: ${rotate} 0.5s ease-in-out infinite;
   }
 `;
 
