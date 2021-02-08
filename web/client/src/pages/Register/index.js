@@ -1,3 +1,4 @@
+import InputMask from "react-input-mask";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -78,6 +79,8 @@ export default function Register() {
             type="tel"
             name="whatsapp"
             placeholder="WhatsApp"
+            mask="(99) 9 9999-9999"
+            as={InputMask}
             error={errors.whatsapp}
             ref={register({ required: true })}
           />

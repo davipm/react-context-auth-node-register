@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import { FiLogIn } from "react-icons/fi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useAuth } from "../../contexts/auth";
 
+import { useAuth } from "../../contexts/auth";
 import logoImg from "../../images/logo.svg";
 import heroImg from "../../images/hero.svg";
 

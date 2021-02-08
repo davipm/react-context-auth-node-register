@@ -33,17 +33,16 @@ export default function Profile() {
     },
   });
 
-  async function deleteCompany(event) {
-    event.preventDefault();
-
-    try {
-      await api.delete(`/companys/${companyId}`);
-      toast.info(`Ong ${user} deleted`);
-      singOut();
-    } catch (error) {
-      toast.error("error deleting Company, try again");
+  const deleteCompany = useMutation(
+    () => api.delete(`/companys/${companyId}`),
+    {
+      onSuccess: () => {
+        toast.info(`Ong ${user} deleted`);
+        singOut();
+      },
+      onError: () => toast.error("error deleting Company, try again"),
     }
-  }
+  );
 
   return (
     <ProfileContainer>
@@ -57,19 +56,13 @@ export default function Profile() {
 
         <div>
           <ProfileButton
-            type="button"
-            onClick={deleteCompany}
+            onClick={() => deleteCompany.mutate({})}
             aria-label="Delete Ong"
             title="Delete Company"
           >
             <FiTrash2 size={20} color="#a8a8b3" />
           </ProfileButton>
-          <ProfileButton
-            type="button"
-            onClick={singOut}
-            aria-label="Log out"
-            title="Log out"
-          >
+          <ProfileButton onClick={singOut} aria-label="Log out" title="Log out">
             <FiPower size={18} color="#536DFE" />
           </ProfileButton>
         </div>
