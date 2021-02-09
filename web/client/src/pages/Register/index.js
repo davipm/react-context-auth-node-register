@@ -1,6 +1,6 @@
 import InputMask from "react-input-mask";
 import { Link, useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
 import { toast } from "react-toastify";
@@ -16,7 +16,7 @@ import { Button, BackButton } from "../../components/Button";
 
 export default function Register() {
   const history = useHistory();
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit, control } = useForm();
 
   const mutation = useMutation((company) => api.post("/companys", company), {
     onSuccess: ({ data }) => {
@@ -75,12 +75,13 @@ export default function Register() {
             error={errors.email}
             ref={register({ required: true })}
           />
-          <Input
+          <Controller
             type="tel"
             name="whatsapp"
             placeholder="WhatsApp"
             mask="(99) 9 9999-9999"
-            as={InputMask}
+            as={<Input as={InputMask} />}
+            control={control}
             error={errors.whatsapp}
             ref={register({ required: true })}
           />
