@@ -23,8 +23,9 @@ export default function Profile() {
   const { user, companyId, singOut } = useAuth();
   const [activeId, setActiveId] = useState(null);
 
-  const { data: freelancer, isLoading, error } = useQuery("profiles", () =>
-    loadProfile(companyId)
+  const { data: freelancer, isLoading, error } = useQuery(
+    ["profiles", companyId],
+    () => loadProfile(companyId)
   );
 
   const onDelete = useMutation((id) => deleteProfile(id, companyId), {
