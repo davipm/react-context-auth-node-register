@@ -3,7 +3,7 @@ import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
 
 export default function Routes() {
-  const { singned } = useAuth();
+  const { signed } = useAuth();
 
-  return !singned ? <AppRoutes /> : <AuthRoutes />;
+  return !signed ? <AppRoutes /> : <AuthRoutes />;
 }
