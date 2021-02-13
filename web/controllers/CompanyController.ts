@@ -1,3 +1,4 @@
+import { Response, Request } from "express";
 import crypto from "crypto";
 import connection from "../database/connection";
 
@@ -7,9 +8,9 @@ import connection from "../database/connection";
  * @param response
  * @returns {Promise<this>}
  */
-export const getCompanys = async (request, response) => {
+export const getCompanys = async (request: Request, response: Response) => {
   try {
-    const companys = await connection('companys').select('*');
+    const companys = await connection("companys").select("*");
     return response.status(200).json(companys);
   } catch (error) {
     return response.status(500).json({ error: "Server Error" });
@@ -22,10 +23,11 @@ export const getCompanys = async (request, response) => {
  * @param response
  * @returns {Promise<this>}
  */
-export const createCompany = async (request, response) => {
+export const createCompany = async (request: Request, response: Response) => {
   try {
     const { email, name, whatsapp, city, uf } = request.body;
-    const id = crypto.randomBytes(4).toString("HEX");
+    console.log({ email, name, whatsapp, city, uf });
+    const id = crypto.randomBytes(4).toString("hex");
 
     await connection("companys").insert({
       id,
@@ -48,7 +50,7 @@ export const createCompany = async (request, response) => {
  * @param response
  * @returns {Promise<this>}
  */
-export const deleteCompany = async (request, response) => {
+export const deleteCompany = async (request: Request, response: Response) => {
   try {
     const { id } = request.params;
     await connection("companys").where("id", id).delete();

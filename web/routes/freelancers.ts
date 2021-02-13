@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {
+  deleteFreelancer,
   getFreelancer,
   registerFreelancer,
-  deleteFreelancer,
 } from "../controllers/FreelancerController";
 
 const routes = Router();

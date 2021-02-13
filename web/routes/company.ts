@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getCompanys, createCompany, deleteCompany } from "../controllers/CompanyController";
+import {
+  deleteCompany,
+  createCompany,
+  getCompanys,
+} from "../controllers/CompanyController";
 
 const routes = Router();
 

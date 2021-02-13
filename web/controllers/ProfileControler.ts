@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import connection from "../database/connection";
 
 /**
@@ -6,7 +7,7 @@ import connection from "../database/connection";
  * @param response
  * @returns {Promise<this>}
  */
-export const getProfiles = async (request, response) => {
+export const getProfiles = async (request: Request, response: Response) => {
   try {
     const company_id = request.headers.authorization;
     const freelancers = await connection("freelancers")

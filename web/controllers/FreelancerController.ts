@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import connection from "../database/connection";
 
 /**
@@ -6,14 +7,14 @@ import connection from "../database/connection";
  * @param response
  * @returns {Promise<this>}
  */
-export const getFreelancer = async (request, response) => {
+export const getFreelancer = async (request: Request, response: Response) => {
   try {
     const { page = 1 } = request.query;
     const [count] = await connection("freelancers").count();
     const freelancers = await connection("freelancers")
       .join("companys", "companys.id", "=", "freelancers.company_id")
       .limit(5)
-      .offset((page - 1) * 5)
+      .offset((Number(page) - 1) * 5)
       .select([
         "freelancers.*",
         "companys.name",
@@ -23,6 +24,7 @@ export const getFreelancer = async (request, response) => {
         "companys.uf",
       ]);
 
+    // @ts-ignore
     response.header("X-Total-Count", count["count(*)"]);
     return response.status(200).json(freelancers);
   } catch (error) {
@@ -36,7 +38,10 @@ export const getFreelancer = async (request, response) => {
  * @param response
  * @returns {Promise<this>}
  */
-export const registerFreelancer = async (request, response) => {
+export const registerFreelancer = async (
+  request: Request,
+  response: Response
+) => {
   try {
     const { title, description, value } = request.body;
     const company_id = request.headers.authorization;
@@ -59,7 +64,10 @@ export const registerFreelancer = async (request, response) => {
  * @param response
  * @returns {Promise<this>}
  */
-export const deleteFreelancer = async (request, response) => {
+export const deleteFreelancer = async (
+  request: Request,
+  response: Response
+) => {
   try {
     const { id } = request.params;
     const company_id = request.headers.authorization;
