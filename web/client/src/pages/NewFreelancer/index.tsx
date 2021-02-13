@@ -12,14 +12,24 @@ import { PageContainer, Input } from "../../styles/utils";
 import { Form, Content } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
+type NewFreelanceInputs = {
+  title: string;
+  description: string;
+  value: string;
+};
+
 export default function NewFreelancer() {
   const history = useHistory();
   const { companyId } = useAuth();
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm<NewFreelanceInputs>();
 
   const mutation = useMutation((data) => createFreelancer(data, companyId), {
     onSuccess: () => history.push("/profile"),
   });
+
+  function onSubmit(data: any) {
+    mutation.mutate(data);
+  }
 
   return (
     <PageContainer>
@@ -34,10 +44,7 @@ export default function NewFreelancer() {
           </BackButton>
         </section>
 
-        <Form
-          onSubmit={handleSubmit((data) => mutation.mutate(data))}
-          autoComplete="off"
-        >
+        <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Input
             type="text"
             name="title"
@@ -46,6 +53,7 @@ export default function NewFreelancer() {
             ref={register({ required: true })}
           />
           <Input
+            // @ts-ignore
             as="textarea"
             name="description"
             placeholder="Description*"
