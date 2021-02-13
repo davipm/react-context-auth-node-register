@@ -11,8 +11,12 @@ import { PageContainer, Input } from "../../styles/utils";
 import { Section, Hero } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
+export interface LoginInputInterface {
+  id: string;
+}
+
 export default function Logon() {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm<LoginInputInterface>();
   const { singIn, loading, error } = useAuth();
 
   return (
@@ -20,7 +24,10 @@ export default function Logon() {
       <Section>
         <img src={logoImg} alt="Welcome" className="logo" />
 
-        <form onSubmit={handleSubmit(singIn)} autoComplete="off">
+        <form
+          onSubmit={handleSubmit((data) => singIn!(data))}
+          autoComplete="off"
+        >
           <h1>Do your Login</h1>
 
           <Input
@@ -33,7 +40,7 @@ export default function Logon() {
           />
           {error && <i>Some problem happen!</i>}
 
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={!!loading}>
             Login
             {loading && (
               <AiOutlineLoading3Quarters size={20} className="loading" />

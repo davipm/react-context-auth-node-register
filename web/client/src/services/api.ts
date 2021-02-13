@@ -1,7 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export async function loadProfile(companyId) {
+import { Freelancer } from "../pages/Profile";
+
+export async function loadProfile(
+  companyId: string | null
+): Promise<Freelancer[]> {
   const { data } = await api.get("/profile", {
     headers: {
       Authorization: companyId,
@@ -11,7 +15,7 @@ export async function loadProfile(companyId) {
   return data;
 }
 
-export async function deleteProfile(id, companyId) {
+export async function deleteProfile(id: any, companyId: string | null) {
   try {
     await api.delete(`/freelancer/${id}`, {
       headers: {
@@ -24,7 +28,7 @@ export async function deleteProfile(id, companyId) {
   }
 }
 
-export async function createFreelancer(data, companyId) {
+export async function createFreelancer(data: any, companyId: string | null) {
   try {
     await api.post("/freelancer", data, {
       headers: {
@@ -32,6 +36,18 @@ export async function createFreelancer(data, companyId) {
       },
     });
     toast.success("New Freelancer created!");
+  } catch (error) {
+    toast.error("Error, tray Again!");
+  }
+}
+
+export async function deleteCompany(
+  user: string | null,
+  companyId: string | null
+) {
+  try {
+    await api.delete(`/companys/${companyId}`);
+    toast.info(`Ong ${user} deleted`);
   } catch (error) {
     toast.error("Error, tray Again!");
   }

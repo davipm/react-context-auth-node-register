@@ -1,8 +1,8 @@
-import 'dotenv/config';
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import morgan from 'morgan';
-import path from 'path';
+import morgan from "morgan";
+import path from "path";
 
 import freelancerRoutes from "./routes/freelancers";
 import companyRoutes from "./routes/company";
@@ -14,13 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   );
 }

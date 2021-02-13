@@ -3,9 +3,9 @@ import { Link, useHistory } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiArrowLeft } from "react-icons/fi";
-import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 
 import api from "../../services/api";
 import logoImg from "../../images/logo.svg";
@@ -14,11 +14,22 @@ import { PageContainer, Input } from "../../styles/utils";
 import { Content, InlineInput } from "./styles";
 import { Button, BackButton } from "../../components/Button";
 
+type RegisterInput = {
+  name: string;
+  email: string;
+  whatsapp: string;
+  city: string;
+  uf: string;
+};
+
 export default function Register() {
   const history = useHistory();
-  const { register, errors, handleSubmit, control } = useForm();
+  const { register, errors, handleSubmit, control } = useForm<RegisterInput>();
 
   const mutation = useMutation((company) => api.post("/companys", company), {
+    onError: () => {
+      toast.error("error register new company, try again");
+    },
     onSuccess: ({ data }) => {
       confirmAlert({
         title: "Save your ID",
@@ -38,8 +49,11 @@ export default function Register() {
         ],
       });
     },
-    onError: () => toast.error("Error, tray Again!"),
   });
+
+  function onSubmit(data: any) {
+    mutation.mutate(data);
+  }
 
   return (
     <PageContainer>
@@ -57,10 +71,7 @@ export default function Register() {
           </BackButton>
         </section>
 
-        <form
-          onSubmit={handleSubmit((data) => mutation.mutate(data))}
-          autoComplete="off"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Input
             type="text"
             name="name"
@@ -80,7 +91,10 @@ export default function Register() {
             name="whatsapp"
             placeholder="WhatsApp"
             mask="(99) 9 9999-9999"
-            as={<Input as={InputMask} />}
+            as={
+              // @ts-ignore
+              <Input as={InputMask} />
+            }
             control={control}
             error={errors.whatsapp}
             ref={register({ required: true })}

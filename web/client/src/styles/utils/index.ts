@@ -33,7 +33,7 @@ export const CenterForm = styled.div`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ error?: any }>`
   ${({ error }) =>
     error &&
     css`
