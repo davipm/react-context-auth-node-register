@@ -17,7 +17,8 @@ Node.js and Expo.io
 * Context Api
 * Node
 * SQLite
+* TypeScript
 
 ## Authors
 
-* **Davi Pereira**
+* **Davi Pereira** in 06/2020
