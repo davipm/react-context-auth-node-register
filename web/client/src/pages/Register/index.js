@@ -75,23 +75,16 @@ export default function Register() {
             error={errors.email}
             ref={register({ required: true })}
           />
-          <Input
+          <Controller
             type="tel"
             name="whatsapp"
             placeholder="WhatsApp"
+            mask="(99) 9 9999-9999"
+            as={<Input as={InputMask} />}
+            control={control}
             error={errors.whatsapp}
             ref={register({ required: true })}
           />
-          {/*<Controller*/}
-          {/*  type="tel"*/}
-          {/*  name="whatsapp"*/}
-          {/*  placeholder="WhatsApp"*/}
-          {/*  mask="(99) 9 9999-9999"*/}
-          {/*  as={<Input as={InputMask} />}*/}
-          {/*  control={control}*/}
-          {/*  error={errors.whatsapp}*/}
-          {/*  ref={register({ required: true })}*/}
-          {/*/>*/}
           <InlineInput>
             <Input
               type="text"
