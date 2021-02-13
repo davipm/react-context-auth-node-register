@@ -1,25 +1,40 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, ReactNode } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { SING_OUT, FETCH, SING_IN, ERROR } from "./actionTypes";
 import authReducer from "./authReducer";
 import api from "../services/api";
+import { LoginInputInterface } from "../pages/Logon";
 
-const initialState = {
+interface AuthContextInterface {
+  loading: boolean | null;
+  error: boolean | null;
+  user: string | null;
+  companyId: string | null;
+  singIn?: (id: LoginInputInterface) => void;
+  singOut?: () => void;
+  singned?: boolean;
+}
+
+interface Props {
+  children: ReactNode;
+}
+
+export const initialState: AuthContextInterface = {
   loading: null,
   error: null,
   user: localStorage.getItem("name") || null,
   companyId: localStorage.getItem("companyId") || null,
 };
 
-const AuthContext = createContext(initialState);
+const AuthContext = createContext<AuthContextInterface>(initialState);
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({ children }: Props) {
   const history = useHistory();
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  async function singIn(data) {
+  async function singIn(data: LoginInputInterface) {
     const { id } = data;
     dispatch({ type: FETCH });
 

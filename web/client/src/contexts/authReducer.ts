@@ -1,6 +1,13 @@
 import { SING_IN, FETCH, SING_OUT, ERROR } from "./actionTypes";
+import { initialState } from "./auth";
 
-export default (state, action) => {
+type ActionType =
+  | { type: "FETCH" }
+  | { type: "ERROR" }
+  | { type: "SING_IN"; payload: { name: string; id: string } }
+  | { type: "SING_OUT" };
+
+export default (state: typeof initialState, action: ActionType) => {
   switch (action.type) {
     case FETCH:
       return {
