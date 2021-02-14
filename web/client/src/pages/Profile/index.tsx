@@ -28,7 +28,7 @@ export interface Freelancer {
 export default function Profile() {
   const queryClient = useQueryClient();
   const { user, companyId, singOut } = useAuth();
-  const [activeId, setActiveId] = useState<any>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const { data: freelancer, isLoading, error } = useQuery<Freelancer[]>(
     ["profiles", companyId],
