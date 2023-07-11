@@ -1,6 +1,6 @@
 # Freelancer Platform
 
-Register company's, Freelancer, price, and contacts with simple authentication.
+Register company's, Freelancer, price, and contacts with authentication.
 
 ### Prerequisites
 
